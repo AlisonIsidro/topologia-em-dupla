@@ -1,0 +1,25 @@
+SW-02
+enable
+configure terminal 
+hostname SW-02
+banner motd "ACESSO APENAS PARA PESSOAS AUTORIZADAS!"
+username alisonleandro privilege 15 secret batata*0
+line console 0
+password alisonleandro*console 
+login
+exit 
+ip domain-name 1rede.local
+crypto key generate rsa general-keys modulus 1024
+line vty 0 15
+transport input ssh 
+password alisonleandro*vty
+login
+exit
+service password-encryption
+interface vlan 1
+ip address 172.16.255.254 255.255.0.0
+no shutdown
+exit
+ip default-gateway 172.16.0.1
+exit
+wr
